@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sangjie.seckill.mapper.GoodsMapper">
+
+    <select id="getGoodsList" resultType="com.sangjie.seckill.pojo.GoodsSeckillVo">
+        SELECT
+            t.id,
+            t.goods_name,
+            t.goods_title,
+            t.goods_img,
+            t.goods_detail,
+            t.goods_price,
+            t.goods_stock,
+            s.seckill_price,
+            s.stock_count,
+            s.start_date,
+            s.end_date
+        FROM t_goods t
+                 join t_seckill_goods s
+        on t.id=s.id;
+    </select>
+
+    <select id="getGoodsVoById" resultType="com.sangjie.seckill.pojo.GoodsSeckillVo">
+        SELECT
+            t.id,
+            t.goods_name,
+            t.goods_title,
+            t.goods_img,
+            t.goods_detail,
+            t.goods_price,
+            t.goods_stock,
+            s.seckill_price,
+            s.stock_count,
+            s.start_date,
+            s.end_date
+        FROM t_goods t
+                 join t_seckill_goods s
+        on t.id=s.id
+        where t.id=${goodsId}
+    </select>
+</mapper>

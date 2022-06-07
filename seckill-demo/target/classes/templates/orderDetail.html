@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+
+    <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+
+    <script type="text/javascript" th:src="@{/js/common.js}"></script>
+</head>
+<body>
+<div id="goodsId" th:text="${goodsId}"></div>
+</body>
+<script>
+    $(function (){
+        getResult($("#goodsId").html());
+    })
+
+    function getResult(goodsId) {
+        $.ajax({
+            url:"/seckill/getResult",
+            type:"GET",
+            data:{
+                goodsId:goodsId
+            },
+            success:function (data) {
+                if (data < 0) {
+                    window.alert("秒杀失败")
+                } else if (data == 0) {
+                    setTimeout(function (){
+                        getResult(goodsId);
+                    }, 50)
+                } else {
+                    window.alert("秒杀成功")
+                }
+            },
+            error:function () {
+                layer.msg("客户请求失败")
+            }
+        })
+    }
+
+</script>
+</html>
